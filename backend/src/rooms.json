@@ -1,0 +1,29 @@
+[
+  {
+    "id": "092969b9-54dc-4016-9f17-e0e55b5028eb",
+    "beds": 3,
+    "breakfast": true,
+    "guests": 6,
+    "balcony": true,
+    "price": 800,
+    "available": true
+  },
+  {
+    "id": "ce9ab99a-2daf-4a24-afac-78f97d17db9f",
+    "beds": 2,
+    "breakfast": true,
+    "guests": 3,
+    "balcony": false,
+    "price": 200,
+    "available": true
+  },
+  {
+    "id": "86614cd5-1645-4aab-a6ec-e33f861b50df",
+    "beds": 2,
+    "breakfast": false,
+    "guests": 2,
+    "balcony": false,
+    "price": 150,
+    "available": false
+  }
+]
