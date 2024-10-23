@@ -1,0 +1,163 @@
+/* Reset CSS básico */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: "Roboto", sans-serif;
+	background-color: #f9f9f9;
+	color: #333;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	margin: 0;
+}
+
+.container {
+	background-color: #fff;
+	padding: 30px;
+	border-radius: 10px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	max-width: 600px;
+	width: 100%;
+	margin: 20px;
+}
+
+h1,
+h2 {
+	color: #333;
+	margin-bottom: 20px;
+	text-align: center;
+	font-weight: 500;
+}
+
+label {
+	font-size: 1.2rem;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="checkbox"],
+select {
+	width: 100%;
+	padding: 12px;
+	margin-bottom: 20px;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	font-size: 1.1rem;
+	color: #333;
+	background-color: #f5f5f5;
+	transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+	border-color: #00ced1;
+}
+
+button {
+	width: 100%;
+	padding: 16px;
+	background-color: #ff7f50;
+	color: white;
+	border: none;
+	border-radius: 8px;
+	font-size: 1.4rem;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+button:hover {
+	background-color: #ff4500;
+}
+
+.form-inline {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.form-inline input {
+	width: 48%;
+}
+
+/* Estilo para RoomSelection */
+.room-card {
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	margin-bottom: 15px;
+	padding: 20px;
+	transition: box-shadow 0.3s ease;
+}
+
+.room-card:hover {
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+	cursor: pointer;
+}
+
+.room-card.selected {
+	border-color: #00ced1;
+	background-color: #f0f8ff;
+}
+
+.room-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 15px;
+}
+
+.room-title {
+	font-size: 1.4rem;
+	font-weight: bold;
+}
+
+.room-price {
+	font-size: 1.4rem;
+	font-weight: bold;
+	color: #00ced1;
+}
+
+.room-details {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 10px;
+}
+
+.room-amenities {
+	display: flex;
+	align-items: center;
+}
+
+.bed-icon {
+	width: 18px;
+	height: 18px;
+	margin-right: 8px;
+	vertical-align: middle;
+}
+
+.flag {
+	display: inline-block;
+	padding: 5px 10px;
+	font-size: 0.9rem;
+	border-radius: 4px;
+	margin-left: 10px;
+}
+
+.flag.enabled {
+	background-color: #4caf50;
+	color: white;
+}
+
+.flag.disabled {
+	background-color: #f44336;
+	color: white;
+}
