@@ -63,7 +63,7 @@ app.post("/rooms", (req, res) => {
 		guests,
 		balcony,
 		price,
-		avaliable: true,
+		available: true,
 	};
 
 	rooms.push(newRoom);

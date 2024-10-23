@@ -1,29 +1,29 @@
 [
   {
-    "id": "092969b9-54dc-4016-9f17-e0e55b5028eb",
-    "beds": 3,
-    "breakfast": true,
-    "guests": 6,
+    "id": "23155838-6db2-477d-b6c3-98563f97eec6",
+    "beds": 5,
+    "breakfast": false,
+    "guests": 10,
     "balcony": true,
-    "price": 800,
+    "price": 1500,
     "available": true
   },
   {
-    "id": "ce9ab99a-2daf-4a24-afac-78f97d17db9f",
+    "id": "d9181a5d-d12b-432b-b91b-8b48a508305f",
     "beds": 2,
     "breakfast": true,
     "guests": 3,
     "balcony": false,
-    "price": 200,
+    "price": 800,
     "available": true
   },
   {
-    "id": "86614cd5-1645-4aab-a6ec-e33f861b50df",
-    "beds": 2,
-    "breakfast": false,
-    "guests": 2,
+    "id": "00c69b02-d9fd-4c6a-94fe-a1c73c7c5d80",
+    "beds": 3,
+    "breakfast": true,
+    "guests": 3,
     "balcony": false,
-    "price": 150,
+    "price": 400,
     "available": false
   }
 ]

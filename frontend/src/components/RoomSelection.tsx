@@ -6,6 +6,10 @@ const RoomSelection: React.FC = () => {
 	const [name, setName] = useState("");
 	const [cpf, setCpf] = useState("");
 	const [showModal, setShowModal] = useState(true);
+	const [reservationMessage, setReservationMessage] = useState<string | null>(
+		null
+	);
+	const [isReservationModalOpen, setIsReservationModalOpen] = useState(false);
 
 	const fetchRooms = async () => {
 		const response = await fetch("http://localhost:3001/rooms");
@@ -21,7 +25,10 @@ const RoomSelection: React.FC = () => {
 			body: JSON.stringify({ roomId, name, cpf }),
 		});
 		const data = await response.json();
-		alert(`Reservation successful! Your ID is ${data.reservationId}`);
+		setReservationMessage(
+			`Reservation successful! Your ID is ${data.reservationId}`
+		);
+		setIsReservationModalOpen(true);
 	};
 
 	useEffect(() => {
@@ -36,6 +43,11 @@ const RoomSelection: React.FC = () => {
 		if (selectedRoom && name && cpf) {
 			makeReservation(selectedRoom, name, cpf);
 		}
+	};
+
+	const closeReservationModal = () => {
+		setIsReservationModalOpen(false);
+		setReservationMessage(null);
 	};
 
 	return (
@@ -99,6 +111,15 @@ const RoomSelection: React.FC = () => {
 						</div>
 					))}
 					<button onClick={handleReserve}>Confirm Reservation</button>
+				</div>
+			)}
+
+			{isReservationModalOpen && (
+				<div className="alert-modal">
+					<div className="alert-modal-content">
+						<p>{reservationMessage}</p>
+						<button onClick={closeReservationModal}>Close</button>
+					</div>
 				</div>
 			)}
 		</div>
