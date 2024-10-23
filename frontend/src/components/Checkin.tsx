@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const Checkin: React.FC = () => {
 	const [cpf, setCpf] = useState("");
 	const [reservationId, setReservationId] = useState("");
-	const [success, setSuccess] = useState(false);
+	const [success, setSuccess] = useState<boolean | null>(null); // Mudança para indicar sucesso ou falha
 
 	const checkIn = async (cpf: string, reservationId: string) => {
 		const response = await fetch("http://localhost:3001/checkin", {
@@ -15,18 +15,18 @@ const Checkin: React.FC = () => {
 		return data.success;
 	};
 
-	const handleCheckin = async () => {
+	const handleCheckin = async (e: React.FormEvent) => {
+		e.preventDefault(); // Prevenindo o comportamento padrão de envio do formulário
 		const result = await checkIn(cpf, reservationId);
 		if (result) {
 			setSuccess(true);
-			alert("Check-in successful!");
 			setCpf("");
 			setReservationId("");
 			setTimeout(() => {
-				setSuccess(false);
+				setSuccess(null);
 			}, 3000);
 		} else {
-			alert("Invalid CPF or reservation ID");
+			setSuccess(false);
 		}
 	};
 
@@ -34,15 +34,17 @@ const Checkin: React.FC = () => {
 		<div className="container">
 			<h1>Check-in</h1>
 			<form onSubmit={handleCheckin}>
-				<label>ID number:</label>
+				<label htmlFor="cpf">ID number:</label>
 				<input
+					id="cpf"
 					type="text"
 					value={cpf}
 					onChange={(e) => setCpf(e.target.value)}
 				/>
 
-				<label>Reservation ID:</label>
+				<label htmlFor="reservationId">Reservation ID:</label>
 				<input
+					id="reservationId"
 					type="text"
 					value={reservationId}
 					onChange={(e) => setReservationId(e.target.value)}
@@ -50,6 +52,9 @@ const Checkin: React.FC = () => {
 
 				<button type="submit">Check-in</button>
 			</form>
+			{/* Renderizando uma mensagem com base no resultado do check-in */}
+			{success === true && <p>Check-in successful!</p>}
+			{success === false && <p>Invalid CPF or reservation ID</p>}
 		</div>
 	);
 };
