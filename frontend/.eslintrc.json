@@ -1,0 +1,59 @@
+{
+	"env": {
+		"browser": true,
+		"es2021": true
+	},
+	"extends": [
+		"eslint:recommended",
+		"plugin:react/recommended",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:boundaries/recommended"
+	],
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"ecmaVersion": 12,
+		"sourceType": "module"
+	},
+	"plugins": ["react", "@typescript-eslint", "boundaries"],
+	"ignorePatterns": ["tests/"],
+	"settings": {
+		"react": {
+			"version": "detect"
+		},
+		"boundaries/types": ["components", "models", "views", "controllers"]
+	},
+	"rules": {
+		"boundaries/element-types": [
+			"error",
+			{
+				"default": "disallow",
+				"rules": [
+					{
+						"from": "component",
+						"allow": ["hook", "utils"]
+					},
+					{
+						"from": "hook",
+						"disallow": ["components"]
+					},
+					{
+						"from": "service",
+						"disallow": ["component", "hook"]
+					},
+					{
+						"from": "page",
+						"allow": ["component", "service"]
+					}
+				]
+			}
+		],
+		"boundaries/no-unknown": "error",
+		"react/react-in-jsx-scope": "off",
+		"@typescript-eslint/explicit-module-boundary-types": "off",
+		"@typescript-eslint/no-explicit-any": "warn",
+		"react/prop-types": "off"
+	}
+}
