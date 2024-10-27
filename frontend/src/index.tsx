@@ -4,9 +4,16 @@ import App from "./App";
 import "./index.css";
 
 const container = document.getElementById("root");
-const root = createRoot(container!);
-root.render(
-	<React.StrictMode>
-		<App />
-	</React.StrictMode>
-);
+
+// Garante que o container existe
+if (container) {
+	const root = createRoot(container);
+
+	root.render(
+		<React.StrictMode>
+			<App />
+		</React.StrictMode>
+	);
+} else {
+	console.error("Root container não encontrado");
+}

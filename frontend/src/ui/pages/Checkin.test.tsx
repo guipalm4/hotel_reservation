@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import Checkin from "../components/Checkin";
+import Checkin from "../pages/Checkin";
 
 describe("Checkin Component", () => {
 	// Testando a renderização do formulário

@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { fireEvent, render, screen } from "@testing-library/react";
-import RoomSelection from "../components/RoomSelection";
+import RoomSelection from "../pages/RoomSelection";
 
 describe("RoomSelection Component", () => {
 	beforeEach(() => {

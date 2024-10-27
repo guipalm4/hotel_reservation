@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { roomService } from "../../DependencyInjection"; // Importa o serviço injetado
+import { CreateRoomDTO } from "../../application/dtos/CreateRoomDTO"; // Importa o DTO de criação
 
 const RoomForm: React.FC = () => {
 	const [beds, setBeds] = useState(1);
@@ -9,25 +11,24 @@ const RoomForm: React.FC = () => {
 	const [message, setMessage] = useState<string | null>(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
-	const handleSubmit = (e: React.FormEvent) => {
+	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 
-		// Lógica para enviar os dados para o backend
-		const roomData = { beds, breakfast, guests, balcony, price };
-		fetch("http://localhost:3001/rooms", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(roomData),
-		})
-			.then((response) => response.json())
-			.then((data) => {
-				setMessage(`Room created with ID: ${data.id}`);
-				setIsModalOpen(true);
-			})
-			.catch(() => {
-				setMessage("Error creating room");
-				setIsModalOpen(true);
-			});
+		try {
+			const roomData: CreateRoomDTO = {
+				beds,
+				breakfast,
+				guests,
+				balcony,
+				price,
+			};
+			const createdRoom = await roomService.createRoom(roomData);
+			setMessage(`Room created with ID: ${createdRoom.id}`);
+			setIsModalOpen(true);
+		} catch (error) {
+			setMessage("Error creating room");
+			setIsModalOpen(true);
+		}
 	};
 
 	const closeModal = () => {
@@ -69,7 +70,7 @@ const RoomForm: React.FC = () => {
 					checked={balcony}
 					onChange={() => setBalcony(!balcony)}
 				/>
-				<label htmlFor="price">Price (R$):</label> {/* Novo campo de preço */}
+				<label htmlFor="price">Price (R$):</label>
 				<input
 					id="price"
 					type="number"

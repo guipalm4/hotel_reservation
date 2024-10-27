@@ -1,8 +1,8 @@
 import React from "react";
 import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import Checkin from "./components/Checkin";
-import RoomForm from "./components/RoomForm";
-import RoomSelection from "./components/RoomSelection";
+import Checkin from "./ui/pages/Checkin";
+import RoomForm from "./ui/pages/RoomForm";
+import RoomSelection from "./ui/pages/RoomSelection";
 
 const App: React.FC = () => {
 	return (

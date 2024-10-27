@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { fireEvent, render, screen } from "@testing-library/react";
-import RoomForm from "../components/RoomForm";
+import RoomForm from "../pages/RoomForm";
 
 describe("RoomForm Component with Modal", () => {
 	test("submits the form with success and shows modal", async () => {

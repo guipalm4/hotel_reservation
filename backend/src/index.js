@@ -108,18 +108,20 @@ app.post("/reserve", (req, res) => {
 app.post("/checkin", (req, res) => {
 	const { cpf, reservationId } = req.body;
 
-	const reservationIndex = reservations.findIndex(
+	// Encontra a reserva com o reservationId e CPF fornecidos
+	const reservation = reservations.find(
 		(r) => r.cpf === cpf && r.reservationId === reservationId
 	);
 
-	if (reservationIndex !== -1) {
-		// Exclui a reserva após o check-in
-		reservations.splice(reservationIndex, 1);
-		saveReservations();
-		res.json({ success: true });
-	} else {
-		res.status(400).json({ error: "Invalid CPF or reservation ID" });
+	if (!reservation) {
+		return res.status(400).json({ error: "Invalid CPF or reservation ID" });
 	}
+
+	// Remove a reserva após o check-in bem-sucedido
+	reservations = reservations.filter((r) => r.reservationId !== reservationId);
+	saveData(reservationsFilePath, reservations);
+
+	res.json({ success: true });
 });
 
 // Listar todas as reservas

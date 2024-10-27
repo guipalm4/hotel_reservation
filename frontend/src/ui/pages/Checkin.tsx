@@ -1,32 +1,29 @@
 import React, { useState } from "react";
+import { checkinUseCase } from "../../DependencyInjection";
+import { CheckinResponse } from "../../application/dtos/CheckinResponse";
 
 const Checkin: React.FC = () => {
 	const [cpf, setCpf] = useState("");
 	const [reservationId, setReservationId] = useState("");
-	const [success, setSuccess] = useState<boolean | null>(null); // Mudança para indicar sucesso ou falha
-
-	const checkIn = async (cpf: string, reservationId: string) => {
-		const response = await fetch("http://localhost:3001/checkin", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ cpf, reservationId }),
-		});
-		const data = await response.json();
-		return data.success;
-	};
+	const [success, setSuccess] = useState<boolean | null>(null);
+	const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
 	const handleCheckin = async (e: React.FormEvent) => {
-		e.preventDefault(); // Prevenindo o comportamento padrão de envio do formulário
-		const result = await checkIn(cpf, reservationId);
-		if (result) {
+		e.preventDefault();
+		const response: CheckinResponse = await checkinUseCase.execute(
+			cpf,
+			reservationId
+		);
+
+		if (response.success) {
 			setSuccess(true);
 			setCpf("");
 			setReservationId("");
-			setTimeout(() => {
-				setSuccess(null);
-			}, 3000);
+			setErrorMessage(null);
+			setTimeout(() => setSuccess(null), 3000);
 		} else {
 			setSuccess(false);
+			setErrorMessage(response.message || "Check-in failed");
 		}
 	};
 
@@ -52,9 +49,9 @@ const Checkin: React.FC = () => {
 
 				<button type="submit">Check-in</button>
 			</form>
-			{/* Renderizando uma mensagem com base no resultado do check-in */}
+
 			{success === true && <p>Check-in successful!</p>}
-			{success === false && <p>Invalid CPF or reservation ID</p>}
+			{success === false && errorMessage && <p>{errorMessage}</p>}
 		</div>
 	);
 };
