@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { reservationService, roomService } from "../../DependencyInjection"; // Importando o serviço injetado pelo arquivo de injeção de dependências
+import { Room } from "../../domain/entities/Room";
 
 const RoomSelection: React.FC = () => {
-	const [rooms, setRooms] = useState<any[]>([]);
+	const [rooms, setRooms] = useState<Room[]>([]);
 	const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
 	const [name, setName] = useState("");
 	const [cpf, setCpf] = useState("");
@@ -11,37 +13,32 @@ const RoomSelection: React.FC = () => {
 	);
 	const [isReservationModalOpen, setIsReservationModalOpen] = useState(false);
 
-	const fetchRooms = async () => {
-		const response = await fetch("http://localhost:3001/rooms");
-		const data = await response.json();
-		const availableRooms = data.filter((room: any) => room.available === true);
-		setRooms(availableRooms);
-	};
-
-	const makeReservation = async (roomId: string, name: string, cpf: string) => {
-		const response = await fetch("http://localhost:3001/reserve", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ roomId, name, cpf }),
-		});
-		const data = await response.json();
-		setReservationMessage(
-			`Reservation successful! Your ID is ${data.reservationId}`
-		);
-		setIsReservationModalOpen(true);
-	};
-
+	// Carrega os quartos disponíveis ao carregar o componente
 	useEffect(() => {
-		fetchRooms();
+		const loadRooms = async () => {
+			const availableRooms = await roomService.listAvailableRooms(); // Usando o serviço injetado
+			setRooms(availableRooms);
+		};
+		loadRooms();
 	}, []);
 
+	// Manipula a seleção de um quarto
 	const handleCardClick = (roomId: string) => {
 		setSelectedRoom(roomId);
 	};
 
-	const handleReserve = () => {
+	// Realiza a reserva
+	const handleReserve = async () => {
 		if (selectedRoom && name && cpf) {
-			makeReservation(selectedRoom, name, cpf);
+			const reservationId = await reservationService.makeReservation(
+				selectedRoom,
+				name,
+				cpf
+			);
+			setReservationMessage(
+				`Reservation successful! Your ID is ${reservationId}`
+			);
+			setIsReservationModalOpen(true);
 		}
 	};
 

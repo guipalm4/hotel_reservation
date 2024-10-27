@@ -2,7 +2,7 @@ import { Reservation } from "../../domain/entities/Reservation";
 import { ReservationRepository } from "../../domain/repositories/ReservationRepository";
 
 export class HttpReservationRepository implements ReservationRepository {
-	private apiUrl = "http://localhost:3001/reservations";
+	private apiUrl = "http://localhost:3001/reserve";
 
 	async findById(id: string): Promise<Reservation | null> {
 		const response = await fetch(`${this.apiUrl}/${id}`);

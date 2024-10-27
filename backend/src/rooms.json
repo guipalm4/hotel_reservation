@@ -6,7 +6,7 @@
     "guests": 10,
     "balcony": true,
     "price": 1500,
-    "available": true
+    "available": false
   },
   {
     "id": "d9181a5d-d12b-432b-b91b-8b48a508305f",
@@ -25,5 +25,14 @@
     "balcony": false,
     "price": 400,
     "available": false
+  },
+  {
+    "id": "47aa22b1-e3fd-40e9-89c9-9f71e03d4a88",
+    "beds": 2,
+    "breakfast": false,
+    "guests": 3,
+    "balcony": true,
+    "price": 200,
+    "available": true
   }
 ]

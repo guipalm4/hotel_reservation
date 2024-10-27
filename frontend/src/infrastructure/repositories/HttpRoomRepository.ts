@@ -1,6 +1,6 @@
+import { RoomResponse } from "../../application/dtos/RoomResponse";
 import { Room } from "../../domain/entities/Room";
 import { RoomRepository } from "../../domain/repositories/RoomRepository";
-import { RoomData } from "../dtos/RoomData";
 
 export class HttpRoomRepository implements RoomRepository {
 	private apiUrl = "http://localhost:3001/rooms";
@@ -9,7 +9,7 @@ export class HttpRoomRepository implements RoomRepository {
 		const response = await fetch(this.apiUrl);
 		const data = await response.json();
 		return data.map(
-			(roomData: RoomData) =>
+			(roomData: RoomResponse) =>
 				new Room(
 					roomData.id,
 					roomData.beds,
@@ -22,26 +22,22 @@ export class HttpRoomRepository implements RoomRepository {
 		);
 	}
 
-	async findById(id: string): Promise<Room | null> {
-		const response = await fetch(`${this.apiUrl}/${id}`);
-		if (!response.ok) return null;
-		const roomData: RoomData = await response.json();
-		return new Room(
-			roomData.id,
-			roomData.beds,
-			roomData.breakfast,
-			roomData.guests,
-			roomData.balcony,
-			roomData.price,
-			roomData.available
-		);
-	}
-
-	async save(room: Room): Promise<void> {
-		await fetch(`${this.apiUrl}/${room.id}`, {
+	async create(room: Room): Promise<Room> {
+		const response = await fetch(this.apiUrl, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(room),
 		});
+		const data = await response.json();
+
+		return new Room(
+			data.id,
+			room.beds,
+			room.breakfast,
+			room.guests,
+			room.balcony,
+			room.price,
+			room.available
+		);
 	}
 }
