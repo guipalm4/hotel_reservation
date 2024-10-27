@@ -7,6 +7,6 @@ checks:
       threshold: 130 # Altera o limite de linhas de arquivos para 300
 exclude_patterns:
   - "**/node_modules/**"
-  - "frontend/src/**.test.tsx"
+  - "frontend/src/ui/pages/**.test.tsx"
   - "backend/**"
   - "frontend/src/ui/pages/RoomSelection.tsx"
