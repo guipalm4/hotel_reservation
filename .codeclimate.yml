@@ -1,0 +1,11 @@
+checks:
+  method-lines:
+    config:
+      threshold: 50 # Altera o limite de linhas de métodos para 50
+  file-lines:
+    config:
+      threshold: 130 # Altera o limite de linhas de arquivos para 300
+exclude_patterns:
+  - "**/node_modules/**"
+  - "frontend/src/**.test.tsx"
+  - "backend/**"
